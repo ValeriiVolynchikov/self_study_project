@@ -1,0 +1,320 @@
+[
+  {
+    "model": "content.course",
+    "pk": 1,
+    "fields": {
+      "title": "Python с нуля",
+      "description": "Базовый курс по Python.",
+      "owner": 1
+    }
+  },
+  {
+    "model": "content.section",
+    "pk": 1,
+    "fields": {
+      "title": "Введение",
+      "course": 1
+    }
+  },
+  {
+    "model": "content.material",
+    "pk": 1,
+    "fields": {
+      "title": "Что такое Python?",
+      "content": "Python — это интерпретируемый язык программирования общего назначения.",
+      "section": 1
+    }
+  },
+  {
+    "model": "content.section",
+    "pk": 3,
+    "fields": {
+      "title": "Типы данных",
+      "course": 1
+    }
+  },
+  {
+    "model": "content.material",
+    "pk": 3,
+    "fields": {
+      "title": "Основные типы данных",
+      "content": "int, float, str, bool, list, tuple, dict — основные типы данных в Python.",
+      "section": 3
+    }
+  },
+  {
+    "model": "content.course",
+    "pk": 2,
+    "fields": {
+      "title": "Django для начинающих",
+      "description": "Курс по созданию веб-приложений на Django.",
+      "owner": 1
+    }
+  },
+  {
+    "model": "content.section",
+    "pk": 2,
+    "fields": {
+      "title": "Основы Django",
+      "course": 2
+    }
+  },
+  {
+    "model": "content.material",
+    "pk": 2,
+    "fields": {
+      "title": "Что такое Django?",
+      "content": "Django — это высокоуровневый веб-фреймворк на Python.",
+      "section": 2
+    }
+  },
+  {
+    "model": "content.section",
+    "pk": 4,
+    "fields": {
+      "title": "Модели и ORM",
+      "course": 2
+    }
+  },
+  {
+    "model": "content.material",
+    "pk": 4,
+    "fields": {
+      "title": "Работа с моделями",
+      "content": "Модели Django — это способ описания структуры базы данных.",
+      "section": 4
+    }
+  },
+  {
+    "model": "testing.test",
+    "pk": 1,
+    "fields": {
+      "material": 1,
+      "title": "Проверка знаний о Python"
+    }
+  },
+  {
+    "model": "testing.question",
+    "pk": 1,
+    "fields": {
+      "test": 1,
+      "text": "Какой тип языка Python?"
+    }
+  },
+  {
+    "model": "testing.answer",
+    "pk": 1,
+    "fields": {
+      "question": 1,
+      "text": "Компилируемый",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "testing.answer",
+    "pk": 2,
+    "fields": {
+      "question": 1,
+      "text": "Интерпретируемый",
+      "is_correct": true
+    }
+  },
+  {
+    "model": "testing.question",
+    "pk": 3,
+    "fields": {
+      "test": 1,
+      "text": "Какой из этих типов данных является изменяемым?"
+    }
+  },
+  {
+    "model": "testing.answer",
+    "pk": 5,
+    "fields": {
+      "question": 3,
+      "text": "tuple",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "testing.answer",
+    "pk": 6,
+    "fields": {
+      "question": 3,
+      "text": "list",
+      "is_correct": true
+    }
+  },
+  {
+    "model": "testing.question",
+    "pk": 4,
+    "fields": {
+      "test": 1,
+      "text": "Что выведет print(type(3.14))?"
+    }
+  },
+  {
+    "model": "testing.answer",
+    "pk": 7,
+    "fields": {
+      "question": 4,
+      "text": "<class 'int'>",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "testing.answer",
+    "pk": 8,
+    "fields": {
+      "question": 4,
+      "text": "<class 'float'>",
+      "is_correct": true
+    }
+  },
+  {
+    "model": "testing.test",
+    "pk": 2,
+    "fields": {
+      "material": 2,
+      "title": "Проверка знаний о Django"
+    }
+  },
+  {
+    "model": "testing.question",
+    "pk": 2,
+    "fields": {
+      "test": 2,
+      "text": "Что такое Django?"
+    }
+  },
+  {
+    "model": "testing.answer",
+    "pk": 3,
+    "fields": {
+      "question": 2,
+      "text": "Язык программирования",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "testing.answer",
+    "pk": 4,
+    "fields": {
+      "question": 2,
+      "text": "Веб-фреймворк на Python",
+      "is_correct": true
+    }
+  },
+  {
+    "model": "testing.question",
+    "pk": 5,
+    "fields": {
+      "test": 2,
+      "text": "Для чего используется миграция в Django?"
+    }
+  },
+  {
+    "model": "testing.answer",
+    "pk": 9,
+    "fields": {
+      "question": 5,
+      "text": "Для создания и изменения структуры базы данных",
+      "is_correct": true
+    }
+  },
+  {
+    "model": "testing.answer",
+    "pk": 10,
+    "fields": {
+      "question": 5,
+      "text": "Для запуска сервера разработки",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "testing.question",
+    "pk": 6,
+    "fields": {
+      "test": 2,
+      "text": "Что такое ORM?"
+    }
+  },
+  {
+    "model": "testing.answer",
+    "pk": 11,
+    "fields": {
+      "question": 6,
+      "text": "Объектно-реляционное отображение",
+      "is_correct": true
+    }
+  },
+  {
+    "model": "testing.answer",
+    "pk": 12,
+    "fields": {
+      "question": 6,
+      "text": "Язык программирования",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "testing.test",
+    "pk": 3,
+    "fields": {
+      "material": 3,
+      "title": "Проверка знаний о типах данных Python"
+    }
+  },
+  {
+    "model": "testing.question",
+    "pk": 7,
+    "fields": {
+      "test": 3,
+      "text": "Какой тип данных является неизменяемым?"
+    }
+  },
+  {
+    "model": "testing.answer",
+    "pk": 13,
+    "fields": {
+      "question": 7,
+      "text": "list",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "testing.answer",
+    "pk": 14,
+    "fields": {
+      "question": 7,
+      "text": "tuple",
+      "is_correct": true
+    }
+  },
+  {
+    "model": "testing.question",
+    "pk": 8,
+    "fields": {
+      "test": 3,
+      "text": "Что выведет print(bool(0))?"
+    }
+  },
+  {
+    "model": "testing.answer",
+    "pk": 15,
+    "fields": {
+      "question": 8,
+      "text": "False",
+      "is_correct": true
+    }
+  },
+  {
+    "model": "testing.answer",
+    "pk": 16,
+    "fields": {
+      "question": 8,
+      "text": "True",
+      "is_correct": false
+    }
+  }
+]

@@ -1,0 +1,61 @@
+services:
+  db:
+    image: postgres:17
+    env_file:
+      - .env
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    ports:
+      - "5433:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  web:
+    build: .
+    # Для деплоя на сервер использовать эту команду
+#    command: >
+#      sh -c "
+#        python manage.py makemigrations --noinput &&
+#        python manage.py migrate --noinput &&
+#        python manage.py csu &&
+#        python manage.py loaddata initial_data.json &&
+#        python manage.py collectstatic --noinput &&
+#        gunicorn config.wsgi:application --bind 0.0.0.0:8000
+#      "
+    # Для локального использования
+    command: >
+      sh -c "
+        python manage.py makemigrations --noinput &&
+        python manage.py migrate --noinput &&
+        python manage.py csu &&
+        python manage.py loaddata initial_data.json &&
+        python manage.py runserver 0.0.0.0:8000
+      "
+    env_file:
+      - .env
+    volumes:
+      - .:/app
+      - static_volume:/app/staticfiles
+    ports:
+      - "8001:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+# Для деплоя на сервер убрать комментарии
+#  nginx:
+#    build:
+#      context: ./nginx
+#    ports:
+#      - "80:80"
+#    volumes:
+#      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+#      - static_volume:/app/staticfiles
+#    depends_on:
+#      - web
+volumes:
+  postgres_data:
+  static_volume:

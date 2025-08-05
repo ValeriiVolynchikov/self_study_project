@@ -131,4 +131,3 @@ class SubmitTestView(APIView):
             {"score": score, "passed": passed, "details": details},
             status=status.HTTP_200_OK,
         )
-    

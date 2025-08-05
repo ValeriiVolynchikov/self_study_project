@@ -15,41 +15,126 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Course',
+            name="Course",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(help_text='Введите название курса (максимум 255 символов)', max_length=255, verbose_name='Название курса')),
-                ('description', models.TextField(blank=True, help_text='Введите описание курса (необязательно)', verbose_name='Описание курса')),
-                ('owner', models.ForeignKey(help_text='Преподаватель, создавший курс', on_delete=django.db.models.deletion.CASCADE, related_name='courses', to=settings.AUTH_USER_MODEL, verbose_name='Владелец курса')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "title",
+                    models.CharField(
+                        help_text="Введите название курса (максимум 255 символов)",
+                        max_length=255,
+                        verbose_name="Название курса",
+                    ),
+                ),
+                (
+                    "description",
+                    models.TextField(
+                        blank=True,
+                        help_text="Введите описание курса (необязательно)",
+                        verbose_name="Описание курса",
+                    ),
+                ),
+                (
+                    "owner",
+                    models.ForeignKey(
+                        help_text="Преподаватель, создавший курс",
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="courses",
+                        to=settings.AUTH_USER_MODEL,
+                        verbose_name="Владелец курса",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Курс',
-                'verbose_name_plural': 'Курсы',
+                "verbose_name": "Курс",
+                "verbose_name_plural": "Курсы",
             },
         ),
         migrations.CreateModel(
-            name='Section',
+            name="Section",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(help_text='Введите название раздела (максимум 255 символов)', max_length=255, verbose_name='Название раздела')),
-                ('course', models.ForeignKey(help_text='Курс, к которому относится этот раздел', on_delete=django.db.models.deletion.CASCADE, related_name='sections', to='content.course', verbose_name='Курс')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "title",
+                    models.CharField(
+                        help_text="Введите название раздела (максимум 255 символов)",
+                        max_length=255,
+                        verbose_name="Название раздела",
+                    ),
+                ),
+                (
+                    "course",
+                    models.ForeignKey(
+                        help_text="Курс, к которому относится этот раздел",
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="sections",
+                        to="content.course",
+                        verbose_name="Курс",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Раздел курса',
-                'verbose_name_plural': 'Разделы курса',
+                "verbose_name": "Раздел курса",
+                "verbose_name_plural": "Разделы курса",
             },
         ),
         migrations.CreateModel(
-            name='Material',
+            name="Material",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(help_text='Введите название учебного материала (максимум 255 символов)', max_length=255, verbose_name='Название материала')),
-                ('content', models.TextField(help_text='Введите содержание учебного материала', verbose_name='Содержание материала')),
-                ('section', models.ForeignKey(help_text='Раздел, к которому относится этот материал', on_delete=django.db.models.deletion.CASCADE, related_name='materials', to='content.section', verbose_name='Раздел')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "title",
+                    models.CharField(
+                        help_text="Введите название учебного материала (максимум 255 символов)",
+                        max_length=255,
+                        verbose_name="Название материала",
+                    ),
+                ),
+                (
+                    "content",
+                    models.TextField(
+                        help_text="Введите содержание учебного материала",
+                        verbose_name="Содержание материала",
+                    ),
+                ),
+                (
+                    "section",
+                    models.ForeignKey(
+                        help_text="Раздел, к которому относится этот материал",
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="materials",
+                        to="content.section",
+                        verbose_name="Раздел",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Учебный материал',
-                'verbose_name_plural': 'Учебные материалы',
+                "verbose_name": "Учебный материал",
+                "verbose_name_plural": "Учебные материалы",
             },
         ),
     ]

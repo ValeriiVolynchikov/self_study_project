@@ -2,9 +2,7 @@ from django.conf.urls.static import static
 from django.urls import path
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework.routers import SimpleRouter
-from rest_framework_simplejwt.views import (TokenObtainPairView,
-                                            TokenRefreshView)
-
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from authentication.apps import AuthenticationConfig
 from authentication.views import UserViewSet
 from config import settings
@@ -40,4 +38,3 @@ urlpatterns = [
 ] + router.urls
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-    

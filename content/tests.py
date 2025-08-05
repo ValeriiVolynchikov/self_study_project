@@ -1,12 +1,9 @@
 from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
-
 from authentication.models import User
 from content.models import Course, Material, Section
-
-from .serializers import (CourseSerializer, MaterialSerializer,
-                          SectionSerializer)
+from .serializers import CourseSerializer, MaterialSerializer, SectionSerializer
 
 
 class ModelTests(APITestCase):
@@ -238,4 +235,3 @@ class MaterialViewSetTests(APITestCase):
         titles = [item["title"] for item in response.data]
         self.assertIn("Test Material", titles)
         self.assertNotIn("Other Material", titles)
-

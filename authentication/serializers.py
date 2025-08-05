@@ -1,5 +1,4 @@
 from rest_framework import serializers
-
 from authentication.models import User
 
 
@@ -64,4 +63,3 @@ class UserSerializer(serializers.ModelSerializer):
         user.is_active = True
         user.save()
         return user
-    

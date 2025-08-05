@@ -40,7 +40,7 @@ services:
       - .:/app
       - static_volume:/app/staticfiles
     ports:
-      - "8001:8000"
+      - "8000:8000"
     depends_on:
       db:
         condition: service_healthy

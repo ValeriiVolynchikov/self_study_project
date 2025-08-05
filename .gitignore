@@ -178,3 +178,8 @@ pyproject.toml
 /config/local_settings.py
 "@ | Out-File -FilePath .gitignore -Encoding utf8
 db.sqlite3
+.tox
+.coverage
+htmlcov/
+*.egg-info/
+.pytest_cache/

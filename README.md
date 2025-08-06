@@ -64,8 +64,8 @@
 ### Вариант 1: Локальная разработка
 #### 1. Клонировать репозиторий:
 ```bash
-    git clone https://github.com/LeojBang/self-study-drf.git
-    cd self-study-platform
+    git clone https://github.com/LeojBang/self_study_project.git
+    cd self_study_project
 ```
 #### 2. Создать .env файл на основе .env.example.
 #### 3. Установить зависимости:
@@ -129,7 +129,7 @@ http://localhost:8001
 ##  Документация API
 #### После запуска проекта, документация будет доступна по адресу:
 ```text
-http://localhost:8000/swagger/
+http://localhost:8001gi/swagger/
 ```
 ## CORS и безопасность
 ```text

@@ -10,7 +10,7 @@ schema_view = get_schema_view(
         title="Self-Study API",
         default_version="v1",
         description="Документация платформы для самообучения студентов",
-        terms_of_service="https://www.google.com/policies/terms/",
+        terms_of_service="sudo nano /var/www/self_study_project/config/settings.py",
         contact=openapi.Contact(email="contact@snippets.local"),
         license=openapi.License(name="BSD License"),
     ),

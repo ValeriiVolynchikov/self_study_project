@@ -28,7 +28,8 @@ services:
     # Для локального использования
 #    command: >
 #      sh -c "
-#        python manage.py makemigrations --noinput &&
+#
+               python manage.py makemigrations --noinput &&
 #        python manage.py migrate --noinput &&
 #        python manage.py csu &&
 #        python manage.py loaddata initial_data.json &&

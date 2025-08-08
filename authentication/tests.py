@@ -62,3 +62,43 @@ class UserSerializerTests(APITestCase):
             serializer.errors["non_field_errors"][0],
             "Нельзя выбрать роль администратора",
         )
+
+
+class UserViewSetPermissionsTests(APITestCase):
+    def setUp(self):
+        self.admin = User.objects.create_user(
+            email="admin@test.com",
+            password="adminpass",
+            role=User.Role.ADMIN
+        )
+        self.user = User.objects.create_user(
+            email="user@test.com",
+            password="userpass"
+        )
+
+    def test_anonymous_access(self):
+        # Аноним может регистрироваться и видеть список
+        response = self.client.post('/authentication/register/', {
+            "email": "new@user.com",
+            "password": "testpass",
+            "password_confirm": "testpass"
+        })
+        self.assertEqual(response.status_code, 201)
+
+        response = self.client.get('/authentication/register/')
+        self.assertEqual(response.status_code, 200)
+
+    def test_regular_user_access(self):
+        self.client.force_authenticate(user=self.user)
+        # Может видеть только себя
+        response = self.client.get(f'/authentication/register/{self.user.id}/')
+        self.assertEqual(response.status_code, 200)
+
+        response = self.client.get('/authentication/register/')
+        self.assertEqual(len(response.data), 1)  # Видит только себя
+
+    def test_admin_access(self):
+        self.client.force_authenticate(user=self.admin)
+        # Админ видит всех
+        response = self.client.get('/authentication/register/')
+        self.assertEqual(len(response.data), 2)

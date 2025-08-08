@@ -2,30 +2,29 @@ from rest_framework import permissions
 
 
 class IsAdmin(permissions.BasePermission):
-    """Проверяет, является ли пользователь администратором."""
-
+    """Только администраторы"""
     def has_permission(self, request, view):
-        return request.user.is_authenticated and request.user.role == "admin"
+        return (request.user.is_authenticated
+                and request.user.role == "admin")
 
 
-class IsTeacher(permissions.BasePermission):
-    """Проверяет, является ли пользователь преподавателем."""
-
+class IsTeacher(permissions.BasePermission):  # Добавляем класс IsTeacher
+    """Только преподаватели"""
     def has_permission(self, request, view):
-        return request.user.is_authenticated and request.user.role == "teacher"
-
-
-class IsStudent(permissions.BasePermission):
-    """Проверяет, является ли пользователь студентом."""
-
-    def has_permission(self, request, view):
-        return request.user.is_authenticated and request.user.role == "student"
+        return (request.user.is_authenticated
+                and request.user.role == "teacher")
 
 
 class IsOwner(permissions.BasePermission):
-    """Проверяет, является ли пользователь владельцем."""
-
+    """Владелец объекта или администратор"""
     def has_object_permission(self, request, view, obj):
-        if obj.owner == request.user:
-            return True
+        if hasattr(obj, 'owner'):
+            return obj.owner == request.user
         return False
+
+
+class IsTeacherOrAdmin(permissions.BasePermission):
+    """Преподаватели или администраторы"""
+    def has_permission(self, request, view):
+        return (request.user.is_authenticated
+                and request.user.role in ["admin", "teacher"])

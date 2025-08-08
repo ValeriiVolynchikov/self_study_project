@@ -64,7 +64,7 @@
 ### Вариант 1: Локальная разработка
 #### 1. Клонировать репозиторий:
 ```bash
-    git clone https://github.com/LeojBang/self_study_project.git
+    git clone https://github.com/ValeriiVolynchikov/self_study_project.git
     cd self_study_project
 ```
 #### 2. Создать .env файл на основе .env.example.

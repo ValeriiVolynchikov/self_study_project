@@ -3,6 +3,10 @@ services:
     image: postgres:17
     env_file:
       - .env
+#    environment:
+#      POSTGRES_USER: avoly  # Используйте ваше имя пользователя
+#      POSTGRES_PASSWORD: vvp162  # Укажите надежный пароль
+#      POSTGRES_DB: self_study_base  # Имя вашей БД
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     ports:
@@ -16,32 +20,35 @@ services:
   web:
     build: .
     # Для деплоя на сервер использовать эту команду
+    #    command: >
+    #      sh -c "
+    #        python manage.py makemigrations --noinput &&
+    #        python manage.py migrate --noinput &&
+    #        python manage.py csu &&
+    #        python manage.py loaddata initial_data.json &&
+    #        python manage.py collectstatic --noinput &&
+    #        gunicorn config.wsgi:application --bind 0.0.0.0:8000
+    #      "
+    # Для локального использования
     command: >
-      sh -c "
+      sh -c "sleep 5 &&
         python manage.py makemigrations --noinput &&
         python manage.py migrate --noinput &&
         python manage.py csu &&
         python manage.py loaddata initial_data.json &&
-        python manage.py collectstatic --noinput &&
-        gunicorn config.wsgi:application --bind 0.0.0.0:8000
+        python manage.py runserver 0.0.0.0:8000
       "
-    # Для локального использования
-#    command: >
-#      sh -c "
-#
-               python manage.py makemigrations --noinput &&
-#        python manage.py migrate --noinput &&
-#        python manage.py csu &&
-#        python manage.py loaddata initial_data.json &&
-#        python manage.py runserver 0.0.0.0:8000
-#      "
     env_file:
       - .env
+#    environment:
+#      - DATABASE_URL=postgres://avoly:XXXXX@db:5432/self_study_base
+#    environment:
+#      - DJANGO_SETTINGS_MODULE=config.settings.docker
     volumes:
       - .:/app
       - static_volume:/app/staticfiles
     ports:
-      - "8000:8000"
+      - "8001:8000"
     depends_on:
       db:
         condition: service_healthy

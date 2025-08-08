@@ -1,7 +1,7 @@
 from django.contrib.auth.models import AnonymousUser
 from rest_framework import viewsets
-
-from authentication.permissions import IsAdmin, IsOwner, IsTeacher
+from rest_framework.permissions import IsAuthenticated
+from authentication.permissions import IsAdmin, IsOwner, IsTeacherOrAdmin as IsTeacher
 
 from .models import Course, Material, Section
 from .serializers import (CourseSerializer, MaterialSerializer,
@@ -26,23 +26,28 @@ class CourseViewSet(viewsets.ModelViewSet):
     serializer_class = CourseSerializer
 
     def get_permissions(self):
-        if self.action in ["update", "partial_update", "destroy"]:
+        if self.action in ['update', 'partial_update', 'destroy']:
+            # Разрешаем: Админ ИЛИ (Преподаватель И владелец)
             self.permission_classes = [IsAdmin | (IsTeacher & IsOwner)]
-        elif self.action == "create":
+        elif self.action == 'create':
+            # Разрешаем: Админ ИЛИ Преподаватель
             self.permission_classes = [IsAdmin | IsTeacher]
-
+        else:
+            # Для list/retrieve - только аутентификация
+            self.permission_classes = [IsAuthenticated]
         return super().get_permissions()
 
     def perform_create(self, serializer):
-        """Автоматически устанавливает текущего пользователя как владельца создаваемого курса."""
-        serializer.save(owner=self.request.user)
+        """Автоматически назначаем текущего пользователя владельцем"""
+        if self.request.user.role in ['teacher', 'admin']:
+            serializer.save(owner=self.request.user)
 
     def get_queryset(self):
         """Фильтрует курсы в зависимости от роли пользователя."""
         user = self.request.user
-        if isinstance(user, AnonymousUser) or not hasattr(user, "role"):
-            return Material.objects.none()
-        if user.role == "teacher":
+        if isinstance(user, AnonymousUser):
+            return Course.objects.none()
+        if user.role == 'teacher':
             return Course.objects.filter(owner=user)
         return super().get_queryset()
 

@@ -84,7 +84,7 @@ DATABASES = {
 #         'NAME': 'self_study_base',
 #         'USER': 'avoly',  # Ваше имя пользователя macOS
 #         'PASSWORD': '',   # Оставьте пустым для локального подключения
-#         'HOST': 'localhost',
+#         'HOST': 'db',
 #         'PORT': '5432',
 #     }
 # }

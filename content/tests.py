@@ -127,6 +127,7 @@ class CourseViewSetTests(APITestCase):
         """
         url = reverse("content:courses-detail", args=[self.course.id])
         data = {"title": "Updated Title"}
+        # Убедитесь, что self.teacher - это владелец self.course
         self.client.force_authenticate(user=self.teacher)
         response = self.client.patch(url, data)
         self.assertEqual(response.status_code, status.HTTP_200_OK)

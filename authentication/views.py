@@ -1,23 +1,36 @@
 from drf_yasg.utils import swagger_auto_schema
-from rest_framework.permissions import AllowAny
 from rest_framework.viewsets import ModelViewSet
 
 from authentication.models import User
 from authentication.serializers import UserSerializer
+from .permissions import IsOwner, IsAdmin
+from rest_framework.permissions import AllowAny, IsAuthenticated
 
 
 class UserViewSet(ModelViewSet):
     """
     API endpoint для регистрации и управления пользователями.
-
-    Предоставляет:
-    - Регистрацию пользователей (открытый доступ)
-    - Управление профилями пользователей
+    - Регистрация (create): доступна всем (AllowAny)
+    - Просмотр списка (list): доступен всем (AllowAny)
+    - Детализация/редактирование: только для админов или владельцев
     """
-
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes = (AllowAny,)
+
+    def get_permissions(self):
+        if self.action in ['create', 'list']:
+            return [AllowAny()]
+        elif self.action in ['update', 'partial_update', 'destroy']:
+            return [IsAdmin() | IsOwner()]
+        return [IsAuthenticated()]
+
+    def get_queryset(self):
+        user = self.request.user
+        if not user.is_authenticated:
+            return User.objects.none()
+        if user.role == User.Role.ADMIN:
+            return super().get_queryset()
+        return User.objects.filter(id=user.id)
 
     @swagger_auto_schema(
         operation_description="Регистрация нового пользователя",
